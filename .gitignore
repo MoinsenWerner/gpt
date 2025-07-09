@@ -1,0 +1,4 @@
+venv/
+selfheal-os/web/frontend/node_modules/
+__pycache__/
+*.pyc
