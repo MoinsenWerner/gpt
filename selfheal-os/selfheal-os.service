@@ -1,0 +1,11 @@
+[Unit]
+Description=Self-Heal OS Daemon
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/selfheal-os
+ExecStart=/opt/selfheal-os/start.sh --frontend
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
