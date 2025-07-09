@@ -6,7 +6,7 @@ python3 -m daemon.monitor &
 MONITOR_PID=$!
 
 # Start FastAPI backend
-(cd "$DIR/web/backend" && uvicorn main:app --host 0.0.0.0 --port 23673) &
+(uvicorn web.backend.main:app --host 0.0.0.0 --port 23673) &
 API_PID=$!
 
 # Optionally start frontend
