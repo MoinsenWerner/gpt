@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Self-Heal OS</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900" id="app">
+  <div id="root" class="p-4"></div>
+  <script type="text/javascript">
+    const e = React.createElement;
+    function App() {
+      const [data, setData] = React.useState({usage:{}, services:[]});
+      const [log, setLog] = React.useState([]);
+      React.useEffect(() => {
+        fetch('/status').then(r => r.json()).then(setData);
+        fetch('/log').then(r => r.json()).then(d => setLog(d.log));
+      }, []);
+      return e('div', {},
+        e('h1', {className:'text-2xl font-bold'}, 'Self-Heal OS Status'),
+        e('div', {}, `CPU: ${data.usage.cpu}% RAM: ${data.usage.ram}% DISK: ${data.usage.disk}%`),
+        e('ul', {}, data.services.map(s => e('li', {key:s}, s))),
+        e('pre', {className:'mt-4 bg-gray-200 p-2'}, log.join('\n'))
+      );
+    }
+    ReactDOM.render(e(App), document.getElementById('root'));
+  </script>
+</body>
+</html>
